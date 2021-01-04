@@ -4,9 +4,6 @@
   "private": true,
   "description": "music-vault",
   "author": "Charley",
-  "keywords": [
-    "gatsby"
-  ],
   "scripts": {
     "develop": "gatsby develop",
     "start": "gatsby develop",
@@ -18,10 +15,26 @@
   "dependencies": {
     "@emotion/react": "^11.1.4",
     "@emotion/styled": "^11.0.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-regular-svg-icons": "^5.15.1",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/react-fontawesome": "^0.1.14",
     "gatsby": "^2.26.1",
     "gatsby-plugin-emotion": "^5.1.0",
     "gatsby-plugin-manifest": "^2.9.1",
+    "gatsby-plugin-react-helmet": "^3.7.0",
+    "gatsby-source-airtable": "^2.1.1",
+    "gatsby-source-filesystem": "^2.8.1",
+    "informed": "^3.27.0",
+    "prop-types": "^15.7.2",
+    "ramda": "^0.27.1",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "react-helmet": "^6.1.0",
+    "react-howler": "^5.0.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^2.0.2",
+    "twin.macro": "^2.0.7"
   }
 }
