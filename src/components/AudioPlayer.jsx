@@ -195,7 +195,7 @@ const AudioPlayer = ({ currentTrack }) => {
           </div>
         </div>
         <div tw="w-1/2">
-          <div tw="flex flex-col space-x-2">
+          <div tw="flex flex-col space-y-2">
             <div tw="flex flex-row items-center justify-center space-x-2 text-red-400">
               <button
                 onClick={togglePlay}
