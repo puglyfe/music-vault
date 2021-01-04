@@ -10,7 +10,6 @@ import "twin.macro";
 
 import AudioPlayer from "../components/AudioPlayer";
 import MixFilter from "../components/MixFilter";
-import song from "../song.mp3";
 
 const getMixes = R.pathOr([], ["allAirtable", "edges"]);
 
@@ -22,8 +21,6 @@ const Home = ({ data }) => {
     title: null,
     src: null,
   });
-
-  console.log(mixes);
 
   return (
     <Fragment>
@@ -43,28 +40,31 @@ const Home = ({ data }) => {
           <div tw="font-semibold">{filteredMixes.length} Mixes</div>
 
           <ul id="mixes" aria-label="Mixes" tw="mt-8">
-            <li tw="flex items-center py-4">
-              <div tw="flex flex-col">
-                <span tw="text-gray-400 text-sm">Test Artist</span>
-                <span tw="font-semibold">Test Track</span>
-              </div>
-              <div tw="flex gap-4 ml-auto text-gray-400">
-                <button
-                  onClick={() =>
-                    setCurrentTrack({
-                      artist: "Test Artist",
-                      title: "Test Track",
-                      src: song,
-                    })
-                  }
-                  title="Play"
-                  type="button"
-                  tw="inline-flex justify-center items-center w-8 h-8 rounded-full shadow-neu"
-                >
-                  <FontAwesomeIcon icon={faPlay} size="xs" />
-                </button>
-              </div>
-            </li>
+            {/* Show a local file during development for testing. */}
+            {/* {process.env.NODE_ENV === "development" ? (
+              <li tw="flex items-center py-4">
+                <div tw="flex flex-col">
+                  <span tw="text-gray-400 text-sm">Test Artist</span>
+                  <span tw="font-semibold">Test Track</span>
+                </div>
+                <div tw="flex space-x-4 ml-auto text-red-400">
+                  <button
+                    onClick={() =>
+                      setCurrentTrack({
+                        artist: "Test Artist",
+                        title: "Test Track",
+                        src: song,
+                      })
+                    }
+                    title="Play"
+                    type="button"
+                    tw="inline-flex justify-center items-center w-8 h-8 rounded-full shadow-neu"
+                  >
+                    <FontAwesomeIcon icon={faPlay} size="xs" />
+                  </button>
+                </div>
+              </li>
+            ) : null} */}
             {filteredMixes.map(
               ({
                 node: {
@@ -76,7 +76,7 @@ const Home = ({ data }) => {
                   <div tw="flex flex-col">
                     <span tw="text-gray-400 text-sm">{artist}</span>
                     <span tw="font-semibold">{title}</span>
-                    <div tw="flex text-sm mt-2 gap-8">
+                    <div tw="flex text-sm mt-2 space-x-8">
                       {date ? (
                         <span tw="flex flex-col">
                           <span tw="text-gray-400">Date</span>
@@ -103,7 +103,7 @@ const Home = ({ data }) => {
                       ) : null} */}
                     </div>
                   </div>
-                  <div tw="flex gap-4 ml-auto text-red-400">
+                  <div tw="flex space-x-4 ml-auto text-red-400">
                     <button
                       onClick={() => setCurrentTrack({ artist, title, src })}
                       title="Play"
