@@ -3,6 +3,7 @@ import { jsx } from "@emotion/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLongArrowAltDown, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { graphql } from "gatsby";
+import { trackCustomEvent } from "gatsby-plugin-google-analytics";
 import * as R from "ramda";
 import { Fragment, useState } from "react";
 import { Helmet } from "react-helmet";
@@ -21,6 +22,25 @@ const Home = ({ data }) => {
     title: null,
     src: null,
   });
+
+  const handleDownloadClick = ({ artist, title, src }) => {
+    trackCustomEvent({
+      category: "Download Button",
+      action: "Download",
+      label: artist,
+      value: `${artist} - ${title}`,
+    });
+  };
+
+  const handlePlayClick = ({ artist, title, src }) => {
+    trackCustomEvent({
+      category: "Play Button",
+      action: "Play",
+      label: artist,
+      value: `${artist} - ${title}`,
+    });
+    setCurrentTrack({ artist, title, src });
+  };
 
   return (
     <Fragment>
@@ -105,7 +125,7 @@ const Home = ({ data }) => {
                   </div>
                   <div tw="flex space-x-4 ml-auto text-red-400">
                     <button
-                      onClick={() => setCurrentTrack({ artist, title, src })}
+                      onClick={() => handlePlayClick({ artist, title, src })}
                       title="Play"
                       type="button"
                       tw="inline-flex justify-center items-center w-8 h-8 rounded-full shadow-neu"
@@ -117,6 +137,9 @@ const Home = ({ data }) => {
                       <a
                         download
                         href={src}
+                        onClick={() =>
+                          handleDownloadClick({ artist, title, src })
+                        }
                         title="Download"
                         tw="inline-flex justify-center items-center w-8 h-8 rounded-full shadow-neu"
                       >

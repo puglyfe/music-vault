@@ -8,6 +8,16 @@ module.exports = {
   },
   plugins: [
     "gatsby-plugin-emotion",
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: "257695822",
+        head: false,
+        anonymize: true,
+        respectDNT: true,
+        defer: true,
+      },
+    },
     "gatsby-plugin-react-helmet",
     {
       resolve: "gatsby-plugin-manifest",
