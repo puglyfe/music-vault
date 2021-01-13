@@ -6,7 +6,7 @@ import * as R from "ramda";
 import "twin.macro";
 
 // Hardcoding this for now to enforce order.
-const ARTISTS = ["The Hamptons", "Tyler Hampton", "Champagne"];
+const ARTISTS = ["The Hamptons", "Tyler Hampton", "Tyler C", "Champagne"];
 
 const applyFilter = (filterValues, list) => {
   if (R.isEmpty(filterValues)) return list;
