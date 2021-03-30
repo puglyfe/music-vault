@@ -151,6 +151,8 @@ const AudioPlayer = ({ currentTrack }) => {
     renderSeekPos();
   };
 
+  // Trying to seek a partially downloaded file is a nightmare.
+  // I'll come back to this... [wink meme]
   // const handleSeekingChange = (e) => {
   //   debug.log("handleSeekingChange");
   //   e.persist();
