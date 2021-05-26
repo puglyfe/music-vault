@@ -9,7 +9,7 @@ import {
   faVolumeUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { Fragment, useEffect, useRef, useState } from "react";
-import ReactHowler from "react-howler";
+import ReactPlayer from "react-player/lazy";
 import "twin.macro";
 
 import debug from "../utils/debug";
@@ -75,7 +75,7 @@ const AudioPlayer = ({ currentTrack }) => {
     if (!isSeekingRef.current) {
       setPlayerState((prevState) => ({
         ...prevState,
-        seek: playerRef.current.seek(),
+        seek: playerRef.current.getCurrentTime(),
       }));
     }
     if (isPlayingRef.current) {
@@ -111,17 +111,17 @@ const AudioPlayer = ({ currentTrack }) => {
     return faVolumeUp;
   };
 
-  // const handleMouseDownSeek = () => {
-  //   isSeekingRef.current = true;
-  // };
+  const handleMouseDownSeek = () => {
+    isSeekingRef.current = true;
+  };
 
-  // const handleMouseUpSeek = (e) => {
-  //   isSeekingRef.current = false;
-  //   playerRef.current.seek(e.target.value);
-  // };
+  const handleMouseUpSeek = (e) => {
+    isSeekingRef.current = false;
+    playerRef.current.seekTo(e.target.value);
+  };
 
-  const handleOnEnd = () => {
-    debug.log("handleOnEnd");
+  const handleOnEnded = () => {
+    debug.log("handleOnEnded");
     setPlayerState((prevState) => ({
       ...prevState,
       playing: false,
@@ -129,11 +129,11 @@ const AudioPlayer = ({ currentTrack }) => {
     cancelAnimationFrame(rafId);
   };
 
-  const handleOnLoad = () => {
-    debug.log("handleOnLoad");
+  const handleOnDuration = (duration) => {
+    debug.log("handleOnDuration", duration);
     setPlayerState((prevState) => ({
       ...prevState,
-      duration: playerRef.current.duration(),
+      duration,
     }));
   };
 
@@ -151,16 +151,14 @@ const AudioPlayer = ({ currentTrack }) => {
     renderSeekPos();
   };
 
-  // Trying to seek a partially downloaded file is a nightmare.
-  // I'll come back to this... [wink meme]
-  // const handleSeekingChange = (e) => {
-  //   debug.log("handleSeekingChange");
-  //   e.persist();
-  //   setPlayerState((prevState) => ({
-  //     ...prevState,
-  //     seek: parseFloat(e.target.value),
-  //   }));
-  // };
+  const handleSeekingChange = (e) => {
+    debug.log("handleSeekingChange");
+    e.persist();
+    setPlayerState((prevState) => ({
+      ...prevState,
+      seek: parseFloat(e.target.value),
+    }));
+  };
 
   const handleVolumeChange = (e) => {
     debug.log("handleVolumeChange");
@@ -173,16 +171,17 @@ const AudioPlayer = ({ currentTrack }) => {
 
   return (
     <Fragment>
-      <ReactHowler
-        html5={true}
-        onEnd={handleOnEnd}
-        onLoad={handleOnLoad}
+      <ReactPlayer
+        height={0}
+        onDuration={handleOnDuration}
+        onEnded={handleOnEnded}
         onPause={handleOnPause}
         onPlay={handleOnPlay}
         playing={playing}
         ref={playerRef}
-        src={currentTrack.src}
+        url={currentTrack.src}
         volume={volume}
+        width={0}
       />
       <div
         css={sliderStyles}
@@ -230,9 +229,9 @@ const AudioPlayer = ({ currentTrack }) => {
                 step=".01"
                 value={seek}
                 readOnly
-                // onChange={handleSeekingChange}
-                // onMouseDown={handleMouseDownSeek}
-                // onMouseUp={handleMouseUpSeek}
+                onChange={handleSeekingChange}
+                onMouseDown={handleMouseDownSeek}
+                onMouseUp={handleMouseUpSeek}
               />
               <span tw="tabular-nums text-gray-400 text-xs">
                 {formatTime(duration)}
