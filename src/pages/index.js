@@ -115,13 +115,13 @@ const Home = ({ data }) => {
                           <span tw="text-gray-400">Episode</span>
                           <span>{episode}</span>
                         </span>
-                      ) : null}
+                      ) : null} */}
                       {tags?.length ? (
                         <span tw="flex flex-col">
                           <span tw="text-gray-400">Tags</span>
-                          <span>{tags.join(", ")}</span>
+                          <span tw="flex flex-row">{tags.map((tag) => (<span tw="bg-gray-200 text-gray-900 rounded inline-block px-1 mr-1">{tag}</span>))}</span>
                         </span>
-                      ) : null} */}
+                      ) : null}
                     </div>
                   </div>
                   <div tw="flex space-x-4 ml-auto text-red-400">
