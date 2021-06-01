@@ -119,7 +119,16 @@ const Home = ({ data }) => {
                       {tags?.length ? (
                         <span tw="flex flex-col">
                           <span tw="text-gray-400">Tags</span>
-                          <span tw="flex flex-row">{tags.map((tag) => (<span tw="bg-gray-200 text-gray-900 rounded inline-block px-1 mr-1">{tag}</span>))}</span>
+                          <span tw="flex flex-row">
+                            {tags.map((tag) => (
+                              <span
+                                key={tag}
+                                tw="bg-gray-200 text-gray-900 rounded inline-block px-1 mr-1"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </span>
                         </span>
                       ) : null}
                     </div>
@@ -167,8 +176,8 @@ const Home = ({ data }) => {
 export default Home;
 
 export const query = graphql`
-  query MyQuery {
-    allAirtable(sort: { fields: data___date }) {
+  query MixesList {
+    allAirtable(sort: { fields: data___date, order: DESC }) {
       edges {
         node {
           id
