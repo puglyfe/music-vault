@@ -46,6 +46,8 @@ const Home = ({ data }) => {
   return (
     <Fragment>
       <Helmet>
+        <html lang="en" />
+        <meta name="description" content="Cataloging 15 years of DJ mixes." />
         <title>The Vault</title>
       </Helmet>
       <div tw="bg-gray-900 text-white">
